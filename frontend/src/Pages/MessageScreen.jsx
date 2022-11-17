@@ -24,6 +24,7 @@ export const MessageScreen = () => {
   };
 
   const handleSend = () => {
+    //client side input validation
     if (otp < 100000 || otp > 999999) {
       return toast({
         title: "OTP should be of 6 digits",

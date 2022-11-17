@@ -38,6 +38,7 @@ router.post(
     .withMessage("Otp should be of 6 digits"),
   async (req, res) => {
     try {
+      //server side validation
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         let newError = errors
