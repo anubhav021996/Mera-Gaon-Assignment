@@ -1,4 +1,4 @@
-import { Heading, VStack } from "@chakra-ui/react";
+import { Heading, Skeleton, VStack } from "@chakra-ui/react";
 import axios from "axios";
 import { useRef, useState, useEffect } from "react";
 import { ContactsCard } from "../Components/ContactsCard";
@@ -6,16 +6,20 @@ import { Pagination } from "../Components/Pagination";
 
 export const Contacts = () => {
   const [contacts, setContacts] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const totalPages = useRef(null);
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/contacts?page=${page}&size=10`)
       .then((res) => {
         setContacts(res.data.contacts);
         totalPages.current = res.data.totalPages;
-      });
+      })
+      .catch((e)=>alert("Error Occured"))
+      .finally(()=> setLoading(false));
   }, [page]);
 
   const handlePageChange = (p) => {
@@ -34,12 +38,14 @@ export const Contacts = () => {
       <Heading mt={5}>Contacts</Heading>
       <VStack w={"100%"} gap={2}>
         {contacts.map((e) => (
+          <Skeleton isLoaded={!loading}>
           <ContactsCard
             key={e._id}
             id={e._id}
             firstName={e.firstName}
             lastName={e.lastName}
           />
+          </Skeleton>
         ))}
       </VStack>
       <Pagination

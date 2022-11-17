@@ -16,6 +16,7 @@ export const MessageScreen = () => {
   const [otp, setOtp] = useState(
     Math.floor(Math.random() * (999999 - 100000) + 100000)
   );
+  const [loading,setLoading]= useState(false);
 
   const handleChange = (e) => {
     let inputOTP = e.target.value;
@@ -31,6 +32,7 @@ export const MessageScreen = () => {
         isClosable: true,
       });
     }
+    setLoading(true);
     axios
       .post(`${process.env.REACT_APP_BASE_URL}/message`, {
         contact_id: id,
@@ -44,7 +46,9 @@ export const MessageScreen = () => {
           position: "top",
           isClosable: true,
         });
-      });
+      })
+      .catch((e)=>alert("Error Occured"))
+      .finally(()=> setLoading(false));
   };
 
   return (
@@ -60,13 +64,14 @@ export const MessageScreen = () => {
       <HStack>
         <Input disabled value={`Hi, Your OTP is: `} />
         <Input
+          disabled={loading}
           type="number"
           placeholder="Enter 6 digits otp"
           value={otp}
           onChange={handleChange}
         />
       </HStack>
-      <Button onClick={handleSend}>Send</Button>
+      <Button disabled={loading} onClick={handleSend}>{loading ? "Sending Otp" : "Send"}</Button>
     </VStack>
   );
 };

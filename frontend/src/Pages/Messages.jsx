@@ -1,15 +1,19 @@
-import { Heading, Stack, VStack } from "@chakra-ui/react";
+import { Heading, Skeleton, Stack, VStack } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { MessageCard } from "../Components/MessageCard";
 
 export const Messages = () => {
   const [messages, setMessages] = useState([]);
+  const [loading, setLoading]= useState(false);
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/message`)
-      .then((res) => setMessages(res.data));
+      .then((res) => setMessages(res.data))
+      .catch((e)=>alert("Error Occured"))
+      .finally(()=> setLoading(false));
   }, []);
 
   return (
@@ -24,6 +28,7 @@ export const Messages = () => {
       <Heading>Messages</Heading>
       <Stack w={"90%"} gap={2}>
         {messages.map((e) => (
+          <Skeleton isLoaded={!loading}>
           <MessageCard
             key={e._id}
             firstName={e.contact_id.firstName}
@@ -31,6 +36,7 @@ export const Messages = () => {
             time={e.createdAt}
             otp={e.otp}
           />
+          </Skeleton>
         ))}
       </Stack>
     </VStack>
