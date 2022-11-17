@@ -38,7 +38,7 @@ export const Contacts = () => {
       <Heading mt={5}>Contacts</Heading>
       <VStack w={"100%"} gap={2}>
         {contacts.map((e) => (
-          <Skeleton isLoaded={!loading}>
+          <Skeleton isLoaded={!loading} w={"100%"}>
             <ContactsCard
               key={e._id}
               id={e._id}
