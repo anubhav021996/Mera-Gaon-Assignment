@@ -18,8 +18,8 @@ export const Contacts = () => {
         setContacts(res.data.contacts);
         totalPages.current = res.data.totalPages;
       })
-      .catch((e)=>alert("Error Occured"))
-      .finally(()=> setLoading(false));
+      .catch((e) => alert("Error Occured"))
+      .finally(() => setLoading(false));
   }, [page]);
 
   const handlePageChange = (p) => {
@@ -39,12 +39,12 @@ export const Contacts = () => {
       <VStack w={"100%"} gap={2}>
         {contacts.map((e) => (
           <Skeleton isLoaded={!loading}>
-          <ContactsCard
-            key={e._id}
-            id={e._id}
-            firstName={e.firstName}
-            lastName={e.lastName}
-          />
+            <ContactsCard
+              key={e._id}
+              id={e._id}
+              firstName={e.firstName}
+              lastName={e.lastName}
+            />
           </Skeleton>
         ))}
       </VStack>

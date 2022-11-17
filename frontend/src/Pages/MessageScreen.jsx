@@ -16,7 +16,7 @@ export const MessageScreen = () => {
   const [otp, setOtp] = useState(
     Math.floor(Math.random() * (999999 - 100000) + 100000)
   );
-  const [loading,setLoading]= useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     let inputOTP = e.target.value;
@@ -47,8 +47,8 @@ export const MessageScreen = () => {
           isClosable: true,
         });
       })
-      .catch((e)=>alert("Error Occured"))
-      .finally(()=> setLoading(false));
+      .catch((e) => alert("Error Occured"))
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -71,7 +71,9 @@ export const MessageScreen = () => {
           onChange={handleChange}
         />
       </HStack>
-      <Button disabled={loading} onClick={handleSend}>{loading ? "Sending Otp" : "Send"}</Button>
+      <Button disabled={loading} onClick={handleSend}>
+        {loading ? "Sending Otp" : "Send"}
+      </Button>
     </VStack>
   );
 };
