@@ -36,18 +36,20 @@ export const Contacts = () => {
       my={5}
     >
       <Heading mt={5}>Contacts</Heading>
-      <VStack w={"100%"} gap={2}>
-        {contacts.map((e) => (
-          <Skeleton isLoaded={!loading} w={"100%"}>
+      {loading ? (
+        <Skeleton h={500} w={500} />
+      ) : (
+        <VStack w={"100%"} gap={2}>
+          {contacts.map((e) => (
             <ContactsCard
               key={e._id}
               id={e._id}
               firstName={e.firstName}
               lastName={e.lastName}
             />
-          </Skeleton>
-        ))}
-      </VStack>
+          ))}
+        </VStack>
+      )}
       <Pagination
         currentPage={page}
         totalPages={totalPages.current}

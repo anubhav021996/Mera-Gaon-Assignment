@@ -48,7 +48,7 @@ export const MessageScreen = () => {
           isClosable: true,
         });
       })
-      .catch((e) => alert("Error Occured"))
+      .catch((e) => console.log(e))
       .finally(() => setLoading(false));
   };
 

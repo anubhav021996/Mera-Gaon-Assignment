@@ -26,9 +26,11 @@ export const Messages = () => {
       boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"
     >
       <Heading>Messages</Heading>
-      <Stack w={"90%"} gap={2}>
-        {messages.map((e) => (
-          <Skeleton isLoaded={!loading}>
+      {loading ? (
+        <Skeleton h={500} w={500} />
+      ) : (
+        <Stack w={"90%"} gap={2}>
+          {messages.map((e) => (
             <MessageCard
               key={e._id}
               firstName={e.contact_id.firstName}
@@ -36,9 +38,9 @@ export const Messages = () => {
               time={e.createdAt}
               otp={e.otp}
             />
-          </Skeleton>
-        ))}
-      </Stack>
+          ))}
+        </Stack>
+      )}
     </VStack>
   );
 };

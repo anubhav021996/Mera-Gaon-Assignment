@@ -47,10 +47,14 @@ router.post(
         return res.status(400).send({ errors: newError });
       }
       const contact = await Contacts.findById(req.body.contact_id);
-      // const res= await sendSMS(contact.phone, "Vonage APIs", req.body.text);
-      // console.log(res);
+      const result = await sendSMS(
+        `91${contact.phone}`,
+        "Vonage APIs",
+        req.body.text
+      );
+      console.log(result);
       const message = await Message.create(req.body);
-      res.status(200).send(message);
+      return res.status(200).send(message);
     } catch (e) {
       res.status(500).send(e.message);
     }
